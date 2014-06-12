@@ -12,26 +12,45 @@ require 'rspec'
 # return `nil`.
 
 #original solution
-def nearest_larger(arr, idx)
-       j=idx-1
-       found=false
-       while found==false and j>=0 do
-        if arr[j]>arr[idx]
-             return j
-             found=true
-        else
-            j=j-1
-        end
-      end
-      j=idx+1
-      while found==false and j<arr.length do
-      if arr[j]>arr[idx]
-             return j
-             found=true
-        else
-            j=j+1
-        end
-      end     
-end
+# def nearest_larger(arr, idx)
+#       j=idx-1
+#       found=false
+#       while found==false and j>=0 do
+#         if arr[j]>arr[idx]
+#             return j
+#             found=true
+#         else
+#             j=j-1
+#         end
+#       end
+#       j=idx+1
+#       while found==false and j<arr.length do
+#       if arr[j]>arr[idx]
+#             return j
+#             found=true
+#         else
+#             j=j+1
+#         end
+#       end     
+# end
 #refacted solution
+def nearest_larger(arr, idx)
+  diff = 1
+  loop do
+    left = idx - diff
+    right = idx + diff
 
+    if (left >= 0) && (arr[left] > arr[idx])
+      return left
+    elsif (right < arr.length) && (arr[right] > arr[idx])
+      return right
+    elsif (left < 0) && (right >= arr.length)
+      return nil
+    end
+
+    diff += 1
+  end
+end
+
+
+puts nearest_larger([1,2,3,2,2,1], 2)
